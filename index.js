@@ -79,7 +79,7 @@ setTimeout(() => {
 }, 1000);
 
 clientMqtt.onResponseTopics(({ topic, message }) => {
-  functions.logger.log(`onResponseTopics`, topic);
+  console.log(`onResponseTopics`, topic);
 
   // clientMqtt.subscribe("update_device");
   if (topic in actionsTopics) {
