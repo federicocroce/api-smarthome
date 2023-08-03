@@ -9,7 +9,7 @@
     "deploy": "firebase deploy --only functions",
     "serve": "firebase emulators:start --only functions",
     "shell": "firebase functions:shell",
-    "start": "node ./index.js",
+    "start": "node index.js",
     "lint": "eslint \"**/*.js\"",
     "lint:fix": "eslint --fix \"**/*.js\""
   },

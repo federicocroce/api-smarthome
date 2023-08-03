@@ -17,8 +17,12 @@
 "use strict";
 
 // require("firebase-functions/logger/compat");
-const functions = require("firebase-functions");
+
+const express = require("express");
 const { clientMqtt, mqttTopics } = require("./mqtt");
+
+const app = express();
+const port = process.env.PORT || 3000; // Puedes cambiar el puerto aquí si lo deseas
 
 // const mqttTopics = {
 //   mi_topic: "mi_topic",
@@ -81,6 +85,16 @@ clientMqtt.onResponseTopics(({ topic, message }) => {
   if (topic in actionsTopics) {
     actionsTopics[topic]({ topic, message });
   }
+});
+
+// Ruta principal que muestra "Hello, World!"
+app.get("/", (req, res) => {
+  res.send("Hello, World!");
+});
+
+// Inicia el servidor en el puerto especificado
+app.listen(port, () => {
+  console.log(`Servidor Express escuchando en http://localhost:${port}`);
 });
 
 /////////
