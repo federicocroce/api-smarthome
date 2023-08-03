@@ -38,22 +38,22 @@ client.on("message", function (topic, message) {
 
 client.onResponseTopics = (cbk) => {
   console.log(`onResponseTopics`);
-  // client.on("message", function (topic, message) {
-  //   // called each time a message is received
-  //   console.log(`onMessage, ${topic}`);
-  //   if (cbk) {
-  //     cbk({ topic, message });
-  //   }
-  //   //   console.log(
-  //   //     "Received message desde el modulo:",
-  //   //     topic,
-  //   //     message.toString()
-  //   //   );
-  //   // client.publish(
-  //   //   "mi_topic_response",
-  //   //   `${topic} desde la api : ${message.toString()}`
-  //   // );
-  // });
+  client.on("message", function (topic, message) {
+    // called each time a message is received
+    console.log(`onMessage, ${topic}`);
+    if (cbk) {
+      cbk({ topic, message });
+    }
+    //   console.log(
+    //     "Received message desde el modulo:",
+    //     topic,
+    //     message.toString()
+    //   );
+    // client.publish(
+    //   "mi_topic_response",
+    //   `${topic} desde la api : ${message.toString()}`
+    // );
+  });
 };
 
 // const newClient = { ...client, onResponseTopics };
