@@ -22,6 +22,7 @@ const express = require("express");
 const { clientMqtt, mqttTopics } = require("./mqtt");
 // Import the functions you need from the SDKs you need
 const { initializeApp } = require("firebase/app");
+const bodyParser = require("body-parser");
 const { getDatabase, ref, update, child, get } = require("firebase/database");
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -43,6 +44,8 @@ const dbRef = ref(getDatabase(firebaseApp));
 
 const app = express();
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 const port = process.env.PORT || 3000; // Puedes cambiar el puerto aquí si lo deseas
 
 console.log(`COMIENZA LA APP`);
