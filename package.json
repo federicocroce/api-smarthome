@@ -7,7 +7,7 @@
   },
   "scripts": {
     "deploy": "firebase deploy --only functions",
-    "serve": "node index.js",
+    "serve": "bash stop-node.sh && node index.js &",
     "shell": "firebase functions:shell",
     "start": "nodemon index.js",
     "lint": "eslint \"**/*.js\"",
