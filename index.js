@@ -83,7 +83,7 @@ app.get("/", (req, res) => {
   res.send(`Hello, World!`);
 });
 
-app.get("/getDevicesValue", async (req, res) => {
+app.post("/getDevicesValue", async (req, res) => {
   console.log(req.body);
   const { devicesId } = req.body;
 
