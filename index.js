@@ -20,6 +20,26 @@
 
 const express = require("express");
 const { clientMqtt, mqttTopics } = require("./mqtt");
+// Import the functions you need from the SDKs you need
+const { initializeApp } = require("firebase/app");
+const { getDatabase, ref, update } = require("firebase/database");
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCd-Mh3TtpGvBWXOSCQmEJ1EiUr11kzll8",
+  authDomain: "smart-home-fc-76670.firebaseapp.com",
+  databaseURL: "https://smart-home-fc-76670-default-rtdb.firebaseio.com",
+  projectId: "smart-home-fc-76670",
+  storageBucket: "smart-home-fc-76670.appspot.com",
+  messagingSenderId: "1045536356759",
+  appId: "1:1045536356759:web:418bfff020f88ca2b26cd2",
+};
+
+// Initialize Firebase
+const firebaseApp = initializeApp(firebaseConfig);
+const database = ref(getDatabase(firebaseApp));
 
 const app = express();
 const port = process.env.PORT || 3000; // Puedes cambiar el puerto aquí si lo deseas
@@ -66,10 +86,22 @@ console.log(`COMIENZA LA APP`);
 ///////////////////////////////////////////////////
 const actionsTopics = {
   [mqttTopics.update_device]: ({ topic, message }) => {
-    clientMqtt.publish(
-      mqttTopics.update_device_response,
-      `soy la response desde actions_topics DESDE LOCAL: ${message.toString()}`
+    const messageFormatted = JSON.parse(message);
+    console.log(topic, messageFormatted);
+    const { device: deviceId, value } = messageFormatted;
+
+    const [traitName, keyValue] = Object.entries(value)[0];
+    const [key, state] = Object.entries(keyValue)[0];
+
+    // const ref = database.child(deviceId).child(traitName);
+
+    update(database, { [`/${deviceId}/${traitName}/${key}`]: state }).then(
+      () => state
     );
+    // clientMqtt.publish(
+    //   mqttTopics.update_device_response,
+    //   `soy la response desde actions_topics DESDE LOCAL: ${message.toString()}`
+    // );
   },
 };
 

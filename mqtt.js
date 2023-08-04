@@ -57,7 +57,7 @@ client.onResponseTopics = (cbk) => {
 };
 
 // const newClient = { ...client, onResponseTopics };
-client.subscribe("mi_topic");
+// client.subscribe("mi_topic");
 
 exports.clientMqtt = client;
 exports.mqttTopics = mqttTopics;
