@@ -84,7 +84,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/getDevicesValue", async (req, res) => {
-  console.log(req.body);
+  console.log("devicesId", req.body);
   const { devicesId } = req.body;
 
   const promises = devicesId.map((device) => get(child(dbRef, `${device}`)));
